@@ -21,10 +21,21 @@ class Usuario < ActiveRecord::Base
     SecureRandom.urlsafe_base64
   end
 
-  # Remembers a user in the database for use in persistent sessions.
+  # Remembers a usuario in the database for use in persistent sessions.
   def remember
     self.remember_token = Usuario.new_token
     update_attribute(:remember_digest, Usuario.digest(remember_token))
+  end
+  
+  # Returns true if the given token matches the digest.
+  def authenticated?(remember_token)
+    return false if remember_digest.nil?
+    BCrypt::Password.new(remember_digest).is_password?(remember_token)
+  end
+  
+  # Forgets a user.
+  def forget
+    update_attribute(:remember_digest, nil)
   end
   
 end
