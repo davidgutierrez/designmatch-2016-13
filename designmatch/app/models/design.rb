@@ -3,8 +3,9 @@ class Design < ActiveRecord::Base
    after_initialize :init
    
    default_scope -> { order(created_at: :desc) }
+   
    validates :proyect_id, presence: true
-   validates :email     , presence: true
+   validates :email     , presence: true, presence: {message:" error mail not found!!!"}
    validates :firstName , presence: true
    validates :lastName  , presence: true
    validates :offer     , presence: true

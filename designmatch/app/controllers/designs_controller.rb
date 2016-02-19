@@ -2,15 +2,14 @@ class DesignsController < ApplicationController
   before_action :logged_in_user, only: [:destroy]
 
   def create
-    design_params
-    debugger
-    
-    @design = Design.new(design_params)
+    @proyect = Proyect.find(params["design"]["proyect"])
+    @design = @proyect.designs.build(design_params)
     if @design.save
       flash[:success] = "Design created!"
       redirect_to @proyect
     else
-      render @proyect
+      @feed_items = []
+      redirect_to @proyect
     end
   end
 
@@ -20,7 +19,7 @@ class DesignsController < ApplicationController
     private
 
     def design_params
-      params.require(:design).permit(:email, :firstName, :lastName, :proyect)
+      params.require(:design).permit(:email, :firstName, :lastName, :offer)
+
     end
-    
 end
