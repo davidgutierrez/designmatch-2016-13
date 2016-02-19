@@ -1,0 +1,10 @@
+<%= form_for(@design) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+  <div class="field">
+    <%= f.email_field  :email, placeholder: "email..." %>
+    <%= f.text_field :firstName, placeholder: "First Name" %>
+    <%= f.text_field :lastName, placeholder: "Last Name" %>
+    <%= f.hidden_field :proyect, :value => @proyect.id%>
+  </div>
+  <%= f.submit "Send", class: "btn btn-primary" %>
+<% end %>

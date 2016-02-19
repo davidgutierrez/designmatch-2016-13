@@ -40,4 +40,13 @@ class ProyectTest < ActiveSupport::TestCase
   test "order should be most recent first" do
     assert_equal proyects(:most_recent), Proyect.first
   end
+  
+  test "associated designs should be destroyed" do
+    @proyect.save
+    @proyect.designs.create!(email: "pepe@mail.com", firstName: "pepe", lastName: "pereira", pictureOriginal: "String", offer: 10 )
+    assert_difference 'Design.count', -1 do
+      @proyect.destroy
+    end
+  end
+  
 end

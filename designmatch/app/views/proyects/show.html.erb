@@ -1,20 +1,27 @@
+<% provide(:title, @proyect.name) %>
 <p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Name:</strong>
-  <%= @proyect.name %>
-</p>
-
-<p>
-  <strong>Description:</strong>
-  <%= @proyect.description %>
-</p>
-
-<p>
-  <strong>Value:</strong>
-  <%= @proyect.value %>
-</p>
-
-
+<div class="row">
+  <aside class="col-md-4">
+    <section class="proyect_info">
+      <%= render 'shared/proyect_info' %>
+    </section>
+    <section class="design_form">
+      <%= render 'shared/design_form' %>
+    </section>
+  </aside>
+<div class="col-md-8">
+  <% if @proyect.designs.any? %>
+    <h3>Designs (<%= @proyect.designs.count %>)</h3>
+    <ol class="designs">
+      <%= render @designs %>
+    </ol>
+    <%= will_paginate @designs %>
+  <% end %>
+</div>
+</div>
+<div class="row">
+<% if current_user?(@proyect.user) %>
 <%= link_to 'Edit', edit_proyect_path(@proyect) %> |
-<%= link_to 'Back', root_path %>
+    <% end %>
+<%= link_to 'Back', "../"+@proyect.user.name %>
+</div>

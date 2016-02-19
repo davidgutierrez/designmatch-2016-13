@@ -13,6 +13,7 @@ class ProyectsController < ApplicationController
     end
   end
 
+  
   def destroy
     @proyect.destroy 
     flash[:success] = "Proyect deleted"
@@ -21,6 +22,8 @@ class ProyectsController < ApplicationController
 
   def show
     @proyect = Proyect.find(params[:id])
+    @design  = @proyect.designs.build
+    @designs = @proyect.designs.paginate(page: params[:page], :per_page => 10)
   end
 
   def edit
