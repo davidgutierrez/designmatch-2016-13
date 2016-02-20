@@ -43,7 +43,9 @@ class ProyectTest < ActiveSupport::TestCase
   
   test "associated designs should be destroyed" do
     @proyect.save
-    @proyect.designs.create!(email: "pepe@mail.com", firstName: "pepe", lastName: "pereira", pictureOriginal: "String", offer: 10 )
+    extend ActionDispatch::TestProcess
+    uploaded = fixture_file_upload('files/portrait.jpg', 'image/jpeg')
+    @proyect.designs.create!(email: "pepe@mail.com", firstName: "pepe", lastName: "pereira", pictureOriginal: uploaded, offer: 10 )
     assert_difference 'Design.count', -1 do
       @proyect.destroy
     end

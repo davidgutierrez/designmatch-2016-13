@@ -9,7 +9,7 @@ class DesignsController < ApplicationController
       redirect_to @proyect
     else
       @feed_items = []
-      redirect_to @proyect
+      render "proyects/67"
     end
   end
 
@@ -19,7 +19,7 @@ class DesignsController < ApplicationController
     private
 
     def design_params
-      params.require(:design).permit(:email, :firstName, :lastName, :offer)
+      params.require(:design).permit(:email, :firstName, :lastName, :offer, :pictureOriginal)
 
     end
 end

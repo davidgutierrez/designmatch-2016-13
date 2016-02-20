@@ -27,12 +27,11 @@ users = User.order(:created_at).take(6)
   users.each { |user| user.proyects.create!(name: name, description: description, value: value) }
 end
 
-proyects = Proyect.order(:created_at).take(6)
-5.times do
-  email2    =   Faker::Internet.email
-  firstName =   Faker::Name.first_name
-  lastName = Faker::Name.last_name
-  pictureOriginal = Faker::Lorem.sentence(10)
-  offer = Faker::Number.positive
-  proyects.each { |proyects| proyects.designs.create!(email: email2, firstName: firstName, lastName: lastName, pictureOriginal: pictureOriginal, offer: offer) }
-end
+#proyects = Proyect.order(:created_at).take(6)
+#5.times do
+#  email2    =   Faker::Internet.email
+#  firstName =   Faker::Name.first_name
+#  lastName  =   Faker::Name.last_name
+#  offer = Faker::Number.positive
+#  proyects.each { |proyect| proyect.designs.create!(email: email2, firstName: firstName, lastName: lastName, pictureOriginal: pictureOriginal, offer: offer) }
+#end

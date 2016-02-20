@@ -5,7 +5,10 @@ class DesignTest < ActiveSupport::TestCase
   def setup
     @proyect = proyects(:orange)
     # This code is not idiomatically correct.
-    @design = @proyect.designs.new(email: "pepe@mail.com", firstName: "pepe", lastName: "pereira", pictureOriginal: "String", offer: 10 )
+        extend ActionDispatch::TestProcess
+    uploaded = fixture_file_upload('files/portrait.jpg', 'image/jpeg')
+
+    @design = @proyect.designs.new(email: "pepe@mail.com", firstName: "pepe", lastName: "pereira", pictureOriginal: uploaded, offer: 10 )
   end
 
   test "should be valid" do
@@ -34,6 +37,11 @@ class DesignTest < ActiveSupport::TestCase
   
   test "offer should be present" do
     @design.offer = nil
+    assert_not @design.valid?
+  end
+
+  test "Image should be present" do
+    @design.pictureOriginal = "  "
     assert_not @design.valid?
   end
   
