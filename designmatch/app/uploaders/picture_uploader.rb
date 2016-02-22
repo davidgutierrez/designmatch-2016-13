@@ -33,5 +33,5 @@ class PictureUploader < CarrierWave::Uploader::Base
       end
     end
   end
-  
-end
+
+end  

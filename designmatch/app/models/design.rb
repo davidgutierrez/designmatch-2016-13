@@ -12,6 +12,8 @@ class Design < ActiveRecord::Base
    validates :pictureOriginal , presence: true
 
    mount_uploader :pictureOriginal, PictureUploader   
+   mount_uploader :pictureProcessed, PictureProcess
+   
    def init
       self.state ||= "En proceso"
    end
@@ -23,4 +25,20 @@ class Design < ActiveRecord::Base
     end
    end
   
+  
+   def updateInProcess
+        Design.where(state: "En proceso").find_each do |design|
+   #         PictureProcess.addVariables(:firstName,:lastName,:created_at)
+            design.pictureProcessed = design.pictureOriginal 
+            design.enviarCorreo(:email)
+            design.state = "Disponible"
+            design.save
+        end
+   end
+   
+    def enviarCorreo(email)
+    # Llamamos al   ActionMailer que creamos
+    ActionCorreo.bienvenido_email(email).deliver_now
+  
+    end
 end

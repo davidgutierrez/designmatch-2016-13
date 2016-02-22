@@ -53,4 +53,8 @@ class DesignTest < ActiveSupport::TestCase
     assert_equal "En proceso", @design.state
   end
 
+  test "deberia actualizar cuando es necesario" do
+    @design.updateInProcess
+    assert true
+  end
 end

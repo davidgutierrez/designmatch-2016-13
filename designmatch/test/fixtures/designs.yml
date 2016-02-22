@@ -5,7 +5,7 @@ orange:
   Email:            "mail@pueba.com"
   FirstName:        "peter"
   LastName:         "Jackson"
-  PictureProcessed: "nooo"
+  PictureOriginal: "nooo"
   Offer:            1200
   created_at:       <%= 10.minutes.ago %>
   proyect:          orange
@@ -14,7 +14,7 @@ tau_manifesto:
   Email:            "tau_manifesto@pueba.com"
   FirstName:        "tau"
   LastName:         "manifesto"
-  PictureProcessed: "noo"
+  PictureOriginal: "noo"
   Offer:            2400
   created_at: <%= 3.years.ago %>
   proyect:          orange
@@ -23,7 +23,7 @@ cat_video:
   Email:            "cat_video@pueba.com"
   FirstName:        "cat"
   LastName:         "video"
-  PictureProcessed: "nodso"
+  PictureOriginal: "nodso"
   Offer:            600
   created_at: <%= 2.hours.ago %>
   proyect:          orange
@@ -32,7 +32,7 @@ most_recent:
   Email:            "most_recent@pueba.com"
   FirstName:        "most"
   LastName:         "recent"
-  PictureProcessed: "nodsosd"
+  PictureOriginal: "nodsosd"
   Offer:            1600
   created_at: <%= Time.zone.now %>
   proyect:          orange
@@ -42,7 +42,7 @@ design_<%= n %>:
   Email:            <%= Faker::Internet.email %>
   FirstName:        <%= Faker::Name.first_name %>
   LastName:         <%= Faker::Name.last_name %>
-  PictureProcessed: <%= Faker::Lorem.sentence(5) %>
+  PictureOriginal:  <%= Faker::Lorem.sentence(5) %>
   Offer:            <%= Faker::Number.positive %>
   created_at:       <%= 42.days.ago %>
   proyect:          orange

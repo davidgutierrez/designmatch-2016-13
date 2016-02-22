@@ -5,11 +5,12 @@ class DesignsController < ApplicationController
     @proyect = Proyect.find(params["design"]["proyect"])
     @design = @proyect.designs.build(design_params)
     if @design.save
+      @design.updateInProcess
       flash[:success] = "Design created!"
       redirect_to @proyect
     else
       @feed_items = []
-      render "proyects/67"
+      redirect_to @proyect
     end
   end
 
