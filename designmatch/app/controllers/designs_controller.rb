@@ -5,13 +5,13 @@ class DesignsController < ApplicationController
     @proyect = Proyect.find(params["design"]["proyect"])
     @design = @proyect.designs.build(design_params)
     if @design.save
-      @design.updateInProcess
       flash[:success] = "Design created!"
       redirect_to @proyect
     else
       @feed_items = []
       redirect_to @proyect
     end
+    Thread.new { GC.start }
   end
 
   def destroy

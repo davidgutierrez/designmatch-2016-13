@@ -15,17 +15,30 @@ class PictureProcess < CarrierWave::Uploader::Base
   end
 
   def add_text()
-    manipulate! do |image|
-        image.combine_options do |c|
+    begin
+      @text = '"'+model.created_at.strftime('%d-%m-%Y')+'"'
+      manipulate! do |image|
+        image.format("png") do |c|
           c.gravity 'Center'
+          c.stroke 'black'
           c.pointsize '22'
-          c.draw "text 0,0  "+model.firstName+" "+model.lastName+" - "+(model.created_at.strftime('%d/%m/%Y'))
+          c.draw 'text 0,-25 "'+model.firstName+'"'
+          c.draw 'text 0,0 "'+model.lastName+'"'
+          c.draw "text 0,25 "+@text
           c.fill 'white'
         end
-#      image.format("png")
       image
-    end    
+    end
+    rescue StandardError => bang
+     $stderr.print  bang
+    end
   end
   
-
+  def filename
+    if(model.created_at!=nil)
+      "#{model.created_at.strftime('%Y%d%m')}.png"
+    else
+      "file.png"
+    end
+  end
 end

@@ -13,9 +13,8 @@
 #   rake "some:great:rake:task"
 # end
 #
-every :hour do
-    
-    runner "Design.updateInProcess"
+every 1.hours do
+    rake 'updateInProcess', :environment => 'development'
 end
 
 # Learn more: http://github.com/javan/whenever
