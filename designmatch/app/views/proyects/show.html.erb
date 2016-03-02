@@ -5,11 +5,11 @@
     <section class="proyect_info">
       <%= render 'shared/proyect_info' %>
     </section>
-          <% if !(current_user?(@proyect.user)) %>
-    <section class="design_form">
-      <%= render 'shared/design_form' %>
-    </section>
-        <% end %>
+      <% if !(current_user?(@proyect.user)) %>
+        <div id="new_design_form">
+          <%= render 'designs/new'%>
+        </div>
+      <% end %>
 
   </aside>
 <div class="col-md-8">
