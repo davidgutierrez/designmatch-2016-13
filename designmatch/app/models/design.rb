@@ -20,7 +20,7 @@ class Design < ActiveRecord::Base
    
    validate :check_dimensions, :on => :create
    def check_dimensions
-    if !pictureOriginal_cache.nil? && (pictureOriginal.width < 800 || pictureOriginal.height < 600)
+    if !pictureOriginal_cache.nil? &&  (pictureOriginal.width < 800 || pictureOriginal.height < 600)
       errors.add :pictureOriginal, "Minimun size of the image is 800x600."
     end
    end

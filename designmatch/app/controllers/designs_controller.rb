@@ -31,6 +31,5 @@ class DesignsController < ApplicationController
 
     def design_params
       params.require(:design).permit(:email, :firstName, :lastName, :offer, :pictureOriginal)
-
     end
 end

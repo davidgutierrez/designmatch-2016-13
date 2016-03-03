@@ -46,4 +46,7 @@ class User < ActiveRecord::Base
     Proyect.where("user_id = ?", id)
   end
   
+  def page
+    :name
+  end
 end
