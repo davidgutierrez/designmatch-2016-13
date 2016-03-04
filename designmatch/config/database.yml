@@ -17,8 +17,14 @@ development:
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
-  <<: *default
-  database: db/test.sqlite3
+  adapter: postgresql
+  encoding: unicode
+  database: postgres
+  pool: 5
+  username: Postgres0Admin
+  password: 1q2w3e4r5t6y7u8i9o
+  host: mydbinstance.cdwf4wxnru9r.us-east-1.rds.amazonaws.com
+  port: 5432
 
 production:
   <<: *default
