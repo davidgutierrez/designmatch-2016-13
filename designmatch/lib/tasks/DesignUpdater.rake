@@ -1,6 +1,6 @@
 desc 'update In Process'
     task updateInProcess: :environment do #
-        Design.where(state: "En proceso").find_each do |design|
+        Design.where(state: "En proceso").first do |design|
             design.pictureProcessed = design.pictureOriginal 
             enviarCorreo(design.email)
             design.state = "Disponible"
