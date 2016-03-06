@@ -20,3 +20,6 @@
 
 # Ignore uploaded test images.
 /public/uploads
+
+# Ignore local_env
+/config/local_env.yml

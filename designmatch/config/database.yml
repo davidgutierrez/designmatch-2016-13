@@ -19,12 +19,12 @@ development:
 test:
   adapter: postgresql
   encoding: unicode
-  database: postgres
+  database: <%= ENV['DB_DATABASE'] %> 
   pool: 5
-  username: Postgres0Admin
-  password: 1q2w3e4r5t6y7u8i9o
-  host: mydbinstance.cdwf4wxnru9r.us-east-1.rds.amazonaws.com
-  port: 5432
+  username: <%= ENV['DB_USERNAME'] %> 
+  password: <%= ENV['DB_PASSWORD'] %> 
+  host: <%= ENV['DB_HOST'] %> 
+  port: <%= ENV['DB_PORT'] %>
 
 production:
   <<: *default

@@ -1,13 +1,13 @@
 desc 'update In Process'
-    task updateInProcess: :environment do #
-        Design.where(state: "En proceso").first do |design|
+    task updateInProcess: :environment do 
+        
+        design = Design.where(state: "En proceso").last
+        if(design != nil)
             design.pictureProcessed = design.pictureOriginal 
             enviarCorreo(design.email)
             design.state = "Disponible"
             design.save
         end
-        
-        Thread.new { GC.start }
     end
    
     def enviarCorreo(email)

@@ -21,7 +21,7 @@
   </div>
   <div class="field">
     <%= f.label :value %><br>
-    <%= f.text_field :value %>
+    <%= f.number_field :value, placeholder: "Valor" , in: 0.0..10000000000, step: 10%>
   </div>
   <div class="actions">
     <%= f.submit %>
