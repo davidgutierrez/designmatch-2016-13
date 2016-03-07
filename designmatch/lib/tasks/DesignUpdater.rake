@@ -11,6 +11,16 @@ desc 'update In Process'
     end
    
     def enviarCorreo(email)
-    # Llamamos al   ActionMailer que creamos
-        ActionCorreo.bienvenido_email(email).deliver_now
+        ses = AWS::SES::Base.new(
+            :access_key_id     => ENV['AWS_ACCESS_KEY_ID'],
+            :secret_access_key => ENV['AWS_SECRET_ACCESS_KEY'],
+#            :server => 'email.eu-west-1.amazonaws.com'
+            )
+        ses.send_email(
+             :to        => [email],
+             :source    => '"Designmatch" <test.ruby.cloud@gmail.com>',
+             :subject   => 'Imagen exitosamente convertida',
+             :text_body => 'Tu imagen ha sido recibida y convertida exitosamente'
+        )  # Llamamos al   ActionMailer que creamos
+    #    ActionCorreo.bienvenido_email(email).deliver_now
     end
