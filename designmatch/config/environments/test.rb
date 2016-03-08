@@ -41,12 +41,12 @@ Rails.application.configure do
   # config.action_view.raise_on_missing_translations = true
     
   config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = {
-  address:              ENV["EMAIL_ADDRESS"],
-  port:                 ENV["EMAIL_PORT"],
-  user_name:            ENV["EMAIL_USER_NAME"],
-  password:             ENV["EMAIL_PASSWORD"],
-  authentication:       :login,
-  enable_starttls_auto: true, 
-  ssl:                  true}
+#  config.action_mailer.smtp_settings = {
+#  address:              ENV["EMAIL_ADDRESS"],
+#  port:                 ENV["EMAIL_PORT"],
+#  user_name:            ENV["EMAIL_USER_NAME"],
+#  password:             ENV["EMAIL_PASSWORD"],
+#  authentication:       :login,
+#  enable_starttls_auto: true, 
+#  ssl:                  true}
 end

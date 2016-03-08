@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   has_many :proyects, dependent: :destroy
+  after_save :defineWeb
   
     attr_accessor :remember_token
     before_save { self.email = email.downcase }
@@ -10,6 +11,7 @@ class User < ActiveRecord::Base
                         uniqueness: { case_sensitive: false }
     has_secure_password
     validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
+
 
   # Returns the hash digest of the given string.
   def User.digest(string)
@@ -40,13 +42,17 @@ class User < ActiveRecord::Base
     update_attribute(:remember_digest, nil)
   end
   
-    # Defines a proto-feed.
-  # See "Following users" for the full implementation.
+  # Defines a proto-feed.
   def feed
     Proyect.where("user_id = ?", id)
   end
+
   
-  def page
-    :name
+  private
+  def defineWeb
+    webPage = self.name.gsub!(/[^0-9A-Za-z]/, '') + self.id.to_s
+    self.update_column(:webPage, webPage)
   end
+  
+  
 end

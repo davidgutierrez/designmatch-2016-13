@@ -3,7 +3,7 @@ class UsersController < ApplicationController
     before_action :correct_user,   only: [:edit, :update]
     
   def show
-    @user = User.find_by_name(params[:name]) if params[:name]
+    @user = User.find_by_webPage(params[:webPage]) if params[:webPage]
 
     # "fallback" to find-by-id
     @user = User.find(params[:id]) unless @user
