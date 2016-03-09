@@ -50,7 +50,11 @@ class User < ActiveRecord::Base
   
   private
   def defineWeb
-    webPage = self.name.gsub!(/[^0-9A-Za-z]/, '') + self.id.to_s
+    webPage = self.name + self.id.to_s
+    if(self.name.gsub!(/[^0-9A-Za-z]/, '') != nil)
+      webPage = self.name.gsub!(/[^0-9A-Za-z]/, '') + self.id.to_s
+
+    end
     self.update_column(:webPage, webPage)
   end
   
