@@ -26,5 +26,5 @@
 <% if current_user?(@proyect.user) %>
 <%= link_to 'Edit', edit_proyect_path(@proyect) %> |
     <% end %>
-<%= link_to 'Back', "../"+@proyect.user.name %>
+<%= link_to 'Back', "../"+@proyect.user.webPage %>
 </div>
