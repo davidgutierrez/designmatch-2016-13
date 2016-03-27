@@ -1,5 +1,7 @@
+
 class DesignsController < ApplicationController
   before_action :logged_in_user, only: [:destroy]
+  include SqsHelper
   protect_from_forgery
 
   def create
@@ -7,15 +9,11 @@ class DesignsController < ApplicationController
     @design = @proyect.designs.build(design_params)
     if @design.save
       flash[:success] = "Design created!"
+      send_msg_to_queue(@design.id.to_s)
       redirect_to @proyect
     else
-      #@feed_items = []
       render "new"
-      # respond_to do |format| 
-      #   format.js {render inline: "location.reload();" } 
-      # end
     end
-    Thread.new { GC.start }
   end
   
   def new
