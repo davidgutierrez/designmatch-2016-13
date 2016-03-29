@@ -49,4 +49,9 @@ Rails.application.configure do
 #  authentication:       :login,
 #  enable_starttls_auto: true, 
 #  ssl:                  true}
+
+# Memcached configuration
+  endpoint    = ENV['AWS_ELASTICWEB']
+  elasticache = Dalli::ElastiCache.new(endpoint)
+# puts elasticache.client
 end

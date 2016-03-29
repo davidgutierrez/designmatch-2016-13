@@ -1,18 +1,24 @@
+# encoding: utf-8
 class PictureProcess < CarrierWave::Uploader::Base
     include CarrierWave::MiniMagick
     process resize_to_limit: [800, 600]
   process :add_text
 
-  if Rails.env.production?
-    storage :fog
-  else
-    storage :file
-  end
+  include CarrierWave::MimeTypes
+	process :set_content_type
+	
+  storage :fog
+
   # Override the directory where uploaded files will be stored.
   # This is a sensible default for uploaders that are meant to be mounted:
   def store_dir
     "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
   end
+
+  def path
+		"https://s3.amazonaws.com/desingmatch-prod/#{store_dir()}" 
+	end
+
 
   def add_text()
     begin
@@ -35,10 +41,6 @@ class PictureProcess < CarrierWave::Uploader::Base
   end
   
   def filename
-    if(model.created_at!=nil)
-      "#{model.created_at.strftime('%Y%d%m')}.png"
-    else
-      "file.png"
-    end
+    "file.png"
   end
 end
