@@ -54,4 +54,5 @@ Rails.application.configure do
   endpoint    = ENV['AWS_ELASTICWEB']
   elasticache = Dalli::ElastiCache.new(endpoint)
 # puts elasticache.client
+  config.cache_store = :dalli_store, elasticache.servers, {:expires_in => 1.day, :compress => true}
 end
