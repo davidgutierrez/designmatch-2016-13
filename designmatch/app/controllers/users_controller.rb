@@ -4,11 +4,8 @@ class UsersController < ApplicationController
     
   def show
     @user = User.find_by_webPage(params[:webPage]) if params[:webPage]
-
-    # "fallback" to find-by-id
-    @user = User.find(params[:id]) unless @user
-    
-    @proyects = @user.proyects.paginate(page: params[:page], :per_page => 10)
+    @user =  User.find(params[:id]) unless @user
+    @proyects = @user.proyects.all() #.page(params[:page]).order('created_at DESC') # :per_page => 10)
   end
   
   def new
@@ -20,7 +17,7 @@ class UsersController < ApplicationController
     if @user.save
       log_in @user
       flash[:success] = "Welcome to Designmatch!"
-      redirect_to @user
+      redirect_to "/"
     else
       render 'new'
     end
@@ -31,14 +28,14 @@ class UsersController < ApplicationController
   end
 
   def index
-    @users = User.paginate(page: params[:page])
+    @users = User.all() #paginate(page: params[:page])
   end
 
   def update
     @user = User.find(params[:id])
     if @user.update_attributes(user_params)
       flash[:success] = "Profile updated"
-      redirect_to @user
+       redirect_to "/"+@user.webPage
     else
       render 'edit'
     end

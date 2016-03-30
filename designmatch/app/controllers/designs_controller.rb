@@ -5,14 +5,22 @@ class DesignsController < ApplicationController
   protect_from_forgery
 
   def create
-    @proyect = Proyect.find(params["design"]["proyect"])
-    @design = @proyect.designs.build(design_params)
+    url = params["design"]["proyect_id"]
+    print "\nsavinewewg\n"
+    @design = Design.new(design_params)
+  #  @design.proyect_id = url
+    print "\nsaving\n"
+    print @design.valid?
+    print "\npararmdfdfs\n"
     if @design.save
+    print @design
+    print "\npararfdfddfms\n"
       flash[:success] = "Design created!"
       send_msg_to_queue(@design.id.to_s)
-      redirect_to @proyect
+      redirect_to "/"+url
     else
-      render "new"
+      print "error"
+      redirect_to "/"+url
     end
   end
   
@@ -28,6 +36,6 @@ class DesignsController < ApplicationController
     private
 
     def design_params
-      params.require(:design).permit(:email, :firstName, :lastName, :offer, :pictureOriginal)
+      params.require(:design).permit(:email, :firstName, :lastName, :offer, :pictureOriginal, :proyect_id)
     end
 end

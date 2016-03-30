@@ -1,16 +1,27 @@
-class User < ActiveRecord::Base
+class User #< ActiveRecord::Base
+  include Dynamoid::Document
+  table :name => :users, :key => :id, :read_capacity => 5, :write_capacity => 5
+  field :name,      :string
+  field :email,     :string
+  field :webPage,   :string
+  field :password_salt, :string 
+	field :password_hash, :string 
+	
+
+	attr_accessor :password
+ 	before_save :encrypt_password
+ 	
   has_many :proyects, dependent: :destroy
-  after_save :defineWeb
+  before_save :defineWeb
   
-    attr_accessor :remember_token
-    before_save { self.email = email.downcase }
-    validates :name, presence: true, length: { maximum: 50 }
+  attr_accessor :remember_token
+  before_save { self.email = email.downcase }
+  validates :name, presence: true, length: { maximum: 50 }
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
-    validates :email,   presence: true, length: { maximum: 255 },
-                        format: { with: VALID_EMAIL_REGEX },
-                        uniqueness: { case_sensitive: false }
-    has_secure_password
-    validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
+  validates :email,   presence: true, length: { maximum: 255 },
+                        format: { with: VALID_EMAIL_REGEX }
+  validates :password, presence: true, length: { minimum: 6 }, allow_nil: true, confirmation: true
+  validates :password_confirmation, presence: true
 
 
   # Returns the hash digest of the given string.
@@ -37,6 +48,13 @@ class User < ActiveRecord::Base
     BCrypt::Password.new(remember_digest).is_password?(remember_token)
   end
   
+  def encrypt_password
+		if password.present?
+			self.password_salt = BCrypt::Engine.generate_salt
+			self.password_hash = BCrypt::Engine.hash_secret(password, password_salt)	
+		end
+  end  
+	
   # Forgets a user.
   def forget
     update_attribute(:remember_digest, nil)
@@ -44,19 +62,21 @@ class User < ActiveRecord::Base
   
   # Defines a proto-feed.
   def feed
-    Proyect.where("user_id = ?", id)
+    Proyect.where(:user_id => email).all
   end
 
+  def authenticate(password)
+	    return self.password_hash == BCrypt::Engine.hash_secret(password, self.password_salt)	
+  end
   
   private
   def defineWeb
-    webPage = self.name + self.id.to_s
+    webPage = self.name + (User.count.to_s)
     if(self.name.gsub!(/[^0-9A-Za-z]/, '') != nil)
-      webPage = self.name.gsub!(/[^0-9A-Za-z]/, '') + self.id.to_s
+      webPage = self.name.gsub!(/[^0-9A-Za-z]/, '') + (User.count.to_s)
 
     end
-    self.update_column(:webPage, webPage)
+    self.webPage = webPage
   end
-  
   
 end

@@ -1,10 +1,11 @@
 <li id="proyect-<%= proyect.id %>">
-  <span class="name"><%= link_to proyect.name, proyect %></span>
+  <span class="name"><%= link_to proyect.name, proyect.url %></span>
   <span class="timestamp">
     Created <%= time_ago_in_words(proyect.created_at) %> ago.
-    <% if current_user?(proyect.user) %>
-      <%= link_to "delete", proyect, method: :delete,
-                                       data: { confirm: "You sure?" } %>
+    <% if current_user?(proyect.user_id) %>
+    <%= link_to proyect, method: :delete, remote: true do %>
+										<button type="button" class="btn btn-sm btn-danger">Remove</button>
+										<% end %>
     <% end %>
   </span>
 </li>

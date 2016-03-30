@@ -5,7 +5,7 @@
     <section class="proyect_info">
       <%= render 'shared/proyect_info' %>
     </section>
-      <% if !(current_user?(@proyect.user)) %>
+      <% if !(current_user?(@proyect.user_id)) %>
         <div id="new_design_form">
           <%= render 'designs/new'%>
         </div>
@@ -13,18 +13,18 @@
 
   </aside>
 <div class="col-md-8">
-  <% if @proyect.designs.any? %>
-    <h3>Designs (<%= @proyect.designs.count %>)</h3>
+  <% if @proyect.feed.any? %>
+  find
+    <h3>Designs (<%= @proyect.feed.count %>)</h3>
     <ol class="designs">
       <%= render @designs %>
     </ol>
-    <%= will_paginate @designs %>
   <% end %>
 </div>
 </div>
 <div class="row">
-<% if current_user?(@proyect.user) %>
-<%= link_to 'Edit', edit_proyect_path(@proyect) %> |
+<% if current_user?(@proyect.user_id) %>
+<%= link_to 'Edit', "../"+@proyect.url+"/edit" %> |
     <% end %>
-<%= link_to 'Back', "../"+@proyect.user.webPage %>
+<%= link_to 'Back', "/"+@proyect.user_id %>
 </div>

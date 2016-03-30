@@ -5,7 +5,7 @@ class PictureUploader < CarrierWave::Uploader::Base
   include CarrierWave::MimeTypes
 	process :set_content_type
 	
-  storage :fog
+  storage :aws
 
   # Override the directory where uploaded files will be stored.
   # This is a sensible default for uploaders that are meant to be mounted:
@@ -15,7 +15,7 @@ class PictureUploader < CarrierWave::Uploader::Base
 
   def path
 		"https://s3.amazonaws.com/desingmatch-prod/#{store_dir()}" 
-	end
+  end
 
 	def url
 		URI.encode("#{path()}") 

@@ -19,8 +19,11 @@ gem 'jbuilder',                '2.2.3'
 gem 'sdoc',                    '0.4.0', group: :doc
 gem 'whenever',           require: false
 gem 'aws-ses'
-gem 'aws-sdk', '~> 2'
 gem 'dalli-elasticache'
+
+gem 'aws-sdk', '~> 1.8.1.2'
+gem 'dynamoid', :git => "https://github.com/chrisrecalis/Dynamoid.git"
+gem 'carrierwave-aws'
 
 group :development, :test do
   gem 'sqlite3',     '1.3.9'

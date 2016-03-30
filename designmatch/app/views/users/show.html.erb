@@ -9,13 +9,12 @@
     </section>
     <%= link_to request.base_url + "/" + @user.webPage,request.base_url + "/" + @user.webPage %>
   </aside>
-  <div class="col-md-8">
-    <% if @user.proyects.any? %>
-      <h3>Proyects (<%= @user.proyects.count %>)</h3>
-      <ol class="proyects">
-        <%= render @proyects %>
-      </ol>
-      <%= will_paginate @proyects %>
-    <% end %>
-  </div>
+     <div class="col-md-8">
+      <h3>Proyects</h3>
+      <% if @user.feed.any? %>
+  <ol class="proyects">
+    <%= render  @user.feed %>
+  </ol>
+<% end %>
+</div>
 </div>

@@ -11,7 +11,10 @@ Rails.application.routes.draw do
   
   resources :users
   get "/:webPage" => "users#show" , as: "page" 
+  get "/:webPage/:url" => "proyects#show" , as: "pageProyects" 
+  get "/:webPage/:url/edit" => "proyects#edit" , as: "pageProyectsEdit" 
   
   resources :proyects
+  
   resources :designs,          only: [:create, :destroy]
 end

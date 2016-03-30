@@ -6,7 +6,6 @@ module DesignsHelper
         message_from_queue = obtain_message_from_queue[0]
         if message_from_queue
 			design = Design.find_by_id(message_from_queue.body)
-            print design 
             if design
                 design.pictureProcessed = design.pictureOriginal 
                 enviarCorreo(design.email)

@@ -2,25 +2,25 @@ module SessionsHelper
 
   # Logs in the given user.
   def log_in(user)
-    session[:user_id] = user.id
+    session[:user_id] = user.email
   end
   
   # Recuerda un user en una session persistente.
   def remember(user)
     user.remember
     cookies.permanent.signed[:user_id] = user.id
-    cookies.permanent[:remember_token]    = user.remember_token
+    cookies.permanent[:remember_token] = user.remember_token
   end
   
   # Returns true if the given user is the current user.
   def current_user?(user)
-    user == current_user
+    user == session[:user_id]
   end
 
     # Returns the current logged-in user (if any).
   def current_user
     if (user_id = session[:user_id])
-      @current_user ||= User.find_by(id: user_id)
+      @current_user ||=  User.find_by_email(session[:user_id])
     elsif (user_id = cookies.signed[:user_id])
       user = User.find_by(id: user_id)
       if user && user.authenticated?(cookies[:remember_token])

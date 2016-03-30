@@ -3,7 +3,8 @@ class ProyectsController < ApplicationController
    before_action :correct_user,   only: :destroy
    
   def create
-    @proyect = current_user.proyects.build(proyect_params)
+    @proyect =  Proyect.new(proyect_params)
+    @proyect.user_id = session[:user_id]
     if @proyect.save
       flash[:success] = "Proyect created!"
       redirect_to root_url
@@ -21,20 +22,23 @@ class ProyectsController < ApplicationController
   end
 
   def show
-    @proyect = Proyect.find(params[:id])
-    @design  = @proyect.designs.build
-    @designs = @proyect.designs.paginate(page: params[:page], :per_page => 10)
+    url = params[:webPage]+"/"+params[:url]
+    @proyect = Proyect.find_by_url(url)
+    @design  = Design.new
+    @designs = Design.all #@proyect.designs.paginate(page: params[:page], :per_page => 10)
   end
 
   def edit
-    @proyect = Proyect.find(params[:id])
+    url = params[:webPage]+"/"+params[:url]
+    @proyect = Proyect.find_by_url(url)
   end
 
   def update
-    @proyect = Proyect.find(params[:id])
+    url = params[:proyect][:url]
+    @proyect = Proyect.find_by_url(url)
     if @proyect.update_attributes(proyect_params)
       flash[:success] = "Proyect updated"
-      redirect_to @proyect
+      redirect_to "/"+url
     else
       render 'edit'
     end
@@ -47,7 +51,7 @@ class ProyectsController < ApplicationController
     end
     
     def correct_user
-      @proyect = current_user.proyects.find_by(id: params[:id])
+      @proyect = Proyect.find_by_url(self.url)
       redirect_to root_url if @proyect.nil?
     end
 end
