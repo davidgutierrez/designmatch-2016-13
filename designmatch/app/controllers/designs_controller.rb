@@ -6,20 +6,25 @@ class DesignsController < ApplicationController
 
   def create
     url = params["design"]["proyect_id"]
-    print "\nsavinewewg\n"
     @design = Design.new(design_params)
+    picture = params["design"]["pictureOriginal"]
+    @design.pictureOriginal = picture 
+    @design.original_filename = picture.original_filename 
   #  @design.proyect_id = url
-    print "\nsaving\n"
     print @design.valid?
-    print "\npararmdfdfs\n"
+    print "\nisvaliddd\n"
     if @design.save
-    print @design
     print "\npararfdfddfms\n"
       flash[:success] = "Design created!"
       send_msg_to_queue(@design.id.to_s)
       redirect_to "/"+url
     else
-      print "error"
+    print "\nerrroes\n"
+      for error in @design.errors
+        print error
+        print "\n"
+      end
+    print "errroes\n"
       redirect_to "/"+url
     end
   end
