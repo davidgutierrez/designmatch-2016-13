@@ -12,9 +12,10 @@ class Design #< ActiveRecord::Base
     field :pictureOriginal,   :string
     field :pictureProcessed,  :string
     field :original_filename, :string
+    field :consecutivo, :string
 
     after_initialize :init
-   
+
     belongs_to :proyect
     validates :proyect_id       , presence: true
     validates :email            , presence: true
@@ -31,7 +32,7 @@ class Design #< ActiveRecord::Base
     def init
         self.state ||= "En proceso"
     end
-    
+
     validate :check_dimensions, :on => :create
     def check_dimensions
         if !pictureOriginal_cache.nil? &&  (pictureOriginal.width < 800 || pictureOriginal.height < 600)

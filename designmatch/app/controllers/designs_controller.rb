@@ -7,9 +7,11 @@ class DesignsController < ApplicationController
   def create
     url = params["design"]["proyect_id"]
     @design = Design.new(design_params)
+    @design.consecutivo = Design.all.count
     picture = params["design"]["pictureOriginal"]
-    @design.pictureOriginal = picture 
     @design.original_filename = picture.original_filename 
+    @design.pictureOriginal = picture, PictureUploader  
+    print @design.pictureOriginal.store_dir
   #  @design.proyect_id = url
     print @design.valid?
     print "\nisvaliddd\n"
