@@ -62,7 +62,7 @@ class User #< ActiveRecord::Base
   
   # Defines a proto-feed.
   def feed
-    Proyect.where(:user_id => email).all
+    Proyect.where(:user_id => id).all
   end
 
   def authenticate(password)

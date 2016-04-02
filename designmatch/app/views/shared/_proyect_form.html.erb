@@ -4,6 +4,9 @@
     <%= f.text_field :name, placeholder: "Name" %>
     <%= f.text_area :description , placeholder: "Description" %>
     <%= f.number_field :value, placeholder: "Valor" , in: 0.0..10000000000, step: 10%>
+    
+  <%= f.hidden_field :user, :value => current_user %>
+  <%= f.hidden_field :url, :value => @proyect.url %>
   </div>
   <%= f.submit "Create", class: "btn btn-primary" %>
 <% end %>

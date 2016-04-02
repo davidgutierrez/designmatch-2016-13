@@ -9,17 +9,28 @@ class PictureProcess < CarrierWave::Uploader::Base
 	
   storage :fog
 
-  # Override the directory where uploaded files will be stored.
+ # Override the directory where uploaded files will be stored.
   # This is a sensible default for uploaders that are meant to be mounted:
   def store_dir
-    "uploads/#{model.class.to_s.underscore}/#{model.id}/#{mounted_as}"
+    consecutivo = "#{model.consecutivo}"
+    if consecutivo.nil?
+      consecutivo = Design.all.count.to_s
+    end
+    "uploads/#{mounted_as}/"+consecutivo
   end
 
+  def filename
+	  "#{model.original_filename}"
+  end
+	
   def path
-		"https://d2k0u56noc1eg2.cloudfront.net/#{store_dir()}" 
+		"https://d2k0u56noc1eg2.cloudfront.net/#{store_dir()}/#{filename()}" 
   end
 
-
+	def url
+		URI.encode("#{path()}") 
+	end
+	
   def add_text()
     begin
       @text = '"'+model.created_at.strftime('%d-%m-%Y')+'"'
@@ -41,6 +52,6 @@ class PictureProcess < CarrierWave::Uploader::Base
   end
   
   def filename
-    "file.png"
+    "image.png"
   end
 end

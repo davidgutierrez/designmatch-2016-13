@@ -2,39 +2,34 @@
 class DesignsController < ApplicationController
   before_action :logged_in_user, only: [:destroy]
   include SqsHelper
-  protect_from_forgery
+  protect_from_forgery :except => :create 
 
   def create
-    url = params["design"]["proyect_id"]
-    @design = Design.new(design_params)
-    @design.consecutivo = Design.all.count
-    picture = params["design"]["pictureOriginal"]
+    @proyect  = Proyect.find(params["design"]["proyect"])
+    @design   = Design.new(design_params)
+    @design.proyect_id = @proyect.id
+    @design.consecutivo ||= Design.all.count
+     picture = params["design"]["pictureOriginal"]
     @design.original_filename = picture.original_filename 
-    @design.pictureOriginal = picture, PictureUploader  
-    print @design.pictureOriginal.store_dir
-  #  @design.proyect_id = url
-    print @design.valid?
-    print "\nisvaliddd\n"
     if @design.save
-    print "\npararfdfddfms\n"
       flash[:success] = "Design created!"
       send_msg_to_queue(@design.id.to_s)
-      redirect_to "/"+url
+      redirect_to @proyect
     else
-    print "\nerrroes\n"
+        print "error\n"
       for error in @design.errors
         print error
         print "\n"
       end
-    print "errroes\n"
-      redirect_to "/"+url
+        print "\nerror\n"
+      render "new"
     end
   end
   
   def new
-    @proyect = Proyect.find(params["design"]["proyect"])
     @design = Design.new
-    @design.proyect_id = @proyect.id
+#    @proyect = Proyect.find(params["design"]["proyect"])
+#    @design.proyect_id = @proyect.id
   end
 
   def destroy

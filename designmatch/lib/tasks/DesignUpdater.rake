@@ -1,6 +1,6 @@
 desc 'update In Process'
     task updateInProcess: :environment do 
-        while true
+   #     while true
             DesignsHelper.convert_pending_designs()
-        end
+#        end
     end

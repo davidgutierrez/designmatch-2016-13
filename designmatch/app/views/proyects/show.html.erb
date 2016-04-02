@@ -13,17 +13,19 @@
 
   </aside>
 <div class="col-md-8">
-  <% if @proyect.feed.any? %>
-    <h3>Designs (<%= @proyect.feed.count %>)</h3>
-    <ol class="designs">
-      <%= render @designs %>
-    </ol>
-  <% end %>
+    <h3>Designs (<%= @designs.count %>)</h3>
+    <% @designs.each_with_index do |design, index| %>
+      <%= render  design %>
+      <% if design.processed %>
+        <%= image_tag design.pictureProcessed %>
+      <% end %>
+    <% end %>
 </div>
 </div>
 <div class="row">
-<% if current_user?(@proyect.user_id) %>
-<%= link_to 'Edit', "../"+@proyect.url+"/edit" %> |
-    <% end %>
-<%= link_to 'Back', "/"+@proyect.user_id %>
+  <% if current_user?(@proyect.user_id) %>
+    <%= link_to 'Edit', edit_proyect_path(@proyect) %> |
+    <%= link_to 'Delete', "../"+@proyect.url+"/Destroy" %> |
+  <% end %>
+  <%= link_to 'Back', "/"+@proyect.user_id %>
 </div>

@@ -10,19 +10,23 @@ class Proyect #< ActiveRecord::Base
   before_save :defineUrl
   belongs_to :user
   has_many :designs, dependent: :destroy
+  
  # default_scope -> { order(created_at: :desc) }
-  validates :user_id, presence: true
-  validates :name, presence: true
+  validates :user_id,     presence: true
+  validates :name,        presence: true
   validates :description, presence: true
-  validates :value, presence: true, :numericality => { :greater_than_or_equal_to => 0 }
+  validates :value,       presence: true, :numericality => { :greater_than => 0 }
   
     # Defines a proto-feed.
-  def feed
-    Design.where(:proyect_id => url).all
-  end
+#  def feed
+#    @proyect = Proyect.find(id)
+#  #  @proyect.designs
+#    Design.where(:proyect_id => id).consistent.all
+#  end
+  
   private
   def defineUrl
-    self.url =  User.find_by_email(self.user_id).webPage+"/"+Proyect.count.to_s
+    self.url =  User.find_by_id(self.user_id).webPage+"/"+Proyect.count.to_s
   end
   
   
