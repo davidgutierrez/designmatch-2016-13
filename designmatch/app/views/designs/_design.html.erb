@@ -1,0 +1,11 @@
+<li id="design-<%= design.id %>">
+  
+  <% if (current_user?(@proyect.user_id)) %>
+    <span class="email"><b>Email: </b><%= design.email %></span><br/>
+    <span class="firstName"><b>Full Name: </b><%= design.firstName %></span>
+    <span class="lastName"><%= design.lastName %></span><br/>
+    <span class="offer"><b>Offer: </b><%= design.offer %></span><br/>
+    <span class="state"><b>State: </b><%= design.state %></span><br/>
+  <% end %>
+  <span class="date"><b>Upload Date: </b><%= design.created_at %></span><br/>
+</li>

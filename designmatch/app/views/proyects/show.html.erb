@@ -1,0 +1,31 @@
+<% provide(:title, @proyect.name) %>
+<p id="notice"><%= notice %></p>
+<div class="row">
+  <aside class="col-md-4">
+    <section class="proyect_info">
+      <%= render 'shared/proyect_info' %>
+    </section>
+      <% if !(current_user?(@proyect.user_id)) %>
+        <div id="new_design_form">
+          <%= render 'designs/new'%>
+        </div>
+      <% end %>
+
+  </aside>
+<div class="col-md-8">
+    <h3>Designs (<%= @designs.count %>)</h3>
+    <% @designs.each_with_index do |design, index| %>
+      <%= render  design %>
+      <% if design.processed %>
+        <%= image_tag design.pictureProcessed %>
+      <% end %>
+    <% end %>
+</div>
+</div>
+<div class="row">
+  <% if current_user?(@proyect.user_id) %>
+    <%= link_to 'Edit', edit_proyect_path(@proyect) %> |
+    <%= link_to 'Delete', "../"+@proyect.url+"/Destroy" %> |
+  <% end %>
+  <%= link_to 'Back', "/"+@proyect.user_id %>
+</div>
