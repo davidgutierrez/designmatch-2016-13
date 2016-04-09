@@ -50,9 +50,13 @@ Rails.application.configure do
 #  enable_starttls_auto: true, 
 #  ssl:                  true}
 
-# Memcached configuration
-  endpoint    = ENV['AWS_ELASTICWEB']
-  elasticache = Dalli::ElastiCache.new(endpoint)
-# puts elasticache.client
-  config.cache_store = :dalli_store, elasticache.servers, {:expires_in => 1.day, :compress => true}
+ # Memcached configuration Amazon CONFIG
+ # endpoint    = ENV['AWS_ELASTICWEB']
+ # elasticache = Dalli::ElastiCache.new(endpoint)
+ # config.cache_store = :dalli_store, elasticache.servers, {:expires_in => 1.day, :compress => true}
+ 
+ # Memcached configuration Heroku
+  if ENV["MEMCACHEDCLOUD_SERVERS"]
+    config.cache_store = :dalli_store, ENV["MEMCACHEDCLOUD_SERVERS"].split(','), { :username => ENV["MEMCACHEDCLOUD_USERNAME"], :password => ENV["MEMCACHEDCLOUD_PASSWORD"] }
+  end
 end
