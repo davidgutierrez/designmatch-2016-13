@@ -3,7 +3,7 @@ class ActionCorreo < ApplicationMailer
     def bienvenido_email(email)
         @email = email
         #@url  = 'http://codeHero.co'
-        mail(to: @email, subject: 'Correo de Prueba Ruby')
+        mail(to: @email, subject: 'Processed Design from Designmatch')
     end
     
     def enviarCorreo(email)
