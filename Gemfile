@@ -25,6 +25,9 @@ gem 'aws-sdk', '~> 1.66.0'
 gem 'dynamoid', :git => "https://github.com/chrisrecalis/Dynamoid.git"
 gem 'carrierwave-aws'
 
+#autoscaling heroku
+gem "hirefire-resource", github: "jtuburon/hirefire-resource"
+
 group :development, :test do
 #  gem 'sqlite3',     '1.3.9'
   gem 'byebug',      '3.4.0'
