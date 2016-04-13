@@ -4,7 +4,6 @@ include SqsHelper
 module DesignsHelper
     def all_converted_designs_in_competition(proyect)
         @designs = Design.where(:proyect_id=> proyect).all
-	#	@designs= Design.where(:proyect_id=> proyect) #, :status => 1
 		#@videos= Video.where(["competition_id = ? and converted_at IS NOT NULL", @competition]).order('created_at DESC').paginate(:page => params[:page], :per_page => 2);
     end
 	
@@ -13,12 +12,18 @@ module DesignsHelper
         if message_from_queue
 			design = Design.find_by_id(message_from_queue.body)
             if design
+            print "converDesign"
                 convertDesign(design) 
   # Llamamos al   ActionMailer que creamos
+            print "sending mail"
                 ActionCorreo.bienvenido_email(design.email).deliver_now
+            print "changing state"
                 design.state = "Disponible"
+            print "saving"
                 design.save
+            print "deletemessage"
                 delete_message_from_queue(message_from_queue.receipt_handle)
+            print "end"
             end
         else
             print "sleeping"
