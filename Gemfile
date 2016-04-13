@@ -21,7 +21,7 @@ gem 'whenever',           require: false
 gem 'aws-ses'
 #gem 'dalli-elasticache' #old AWS gem
 gem 'iron_cache_rails', :git =>  'git://github.com/iron-io/iron_cache_rails.git'
-gem 'aws-sdk', '~> 1.8.1.2'
+gem 'aws-sdk', '~> 1.66.0'
 gem 'dynamoid', :git => "https://github.com/chrisrecalis/Dynamoid.git"
 gem 'carrierwave-aws'
 
