@@ -20,7 +20,7 @@ gem 'sdoc',                    '0.4.0', group: :doc
 gem 'whenever',           require: false
 gem 'aws-ses'
 #gem 'dalli-elasticache' #old AWS gem
-gem 'dalli'
+gem 'iron_cache_rails', :git =>  'git://github.com/iron-io/iron_cache_rails.git'
 gem 'aws-sdk', '~> 1.8.1.2'
 gem 'dynamoid', :git => "https://github.com/chrisrecalis/Dynamoid.git"
 gem 'carrierwave-aws'

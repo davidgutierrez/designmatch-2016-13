@@ -55,8 +55,6 @@ Rails.application.configure do
  # elasticache = Dalli::ElastiCache.new(endpoint)
  # config.cache_store = :dalli_store, elasticache.servers, {:expires_in => 1.day, :compress => true}
  
- # Memcached configuration Heroku
-  if ENV["MEMCACHEDCLOUD_SERVERS"]
-    config.cache_store = :dalli_store, ENV["MEMCACHEDCLOUD_SERVERS"].split(','), { :username => ENV["MEMCACHEDCLOUD_USERNAME"], :password => ENV["MEMCACHEDCLOUD_PASSWORD"] }
-  end
+ # IronCache Store
+    config.cache_store =  :iron_cache, {project_id: ENV['IRON_PROJECTID'], token: ENV['IRON_TOKEN']}
 end
