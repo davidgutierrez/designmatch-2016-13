@@ -3,7 +3,7 @@ include SqsHelper
 
 module DesignsHelper
     def all_converted_designs_in_competition(proyect)
-        @designs = Design.where(:proyect_id=> proyect).all
+        @designs = Design.where(:proyect_id=> proyect).limit(10)
 		#@videos= Video.where(["competition_id = ? and converted_at IS NOT NULL", @competition]).order('created_at DESC').paginate(:page => params[:page], :per_page => 2);
     end
 	
