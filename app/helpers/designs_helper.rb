@@ -12,18 +12,12 @@ module DesignsHelper
         if message_from_queue
 			design = Design.find_by_id(message_from_queue.body)
             if design
-            print "converDesign"
                 convertDesign(design) 
   # Llamamos al   ActionMailer que creamos
-            print "sending mail"
-                ActionCorreo.bienvenido_email(design.email).deliver_now
-            print "changing state"
+  #             ActionCorreo.bienvenido_email(design.email).deliver_now
                 design.state = "Disponible"
-            print "saving"
                 design.save
-            print "deletemessage"
                 delete_message_from_queue(message_from_queue.receipt_handle)
-            print "end"
             end
         else
             print "sleeping"
