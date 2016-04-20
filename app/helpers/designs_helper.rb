@@ -14,7 +14,7 @@ module DesignsHelper
             if design
                 convertDesign(design) 
   # Llamamos al   ActionMailer que creamos
-  #             ActionCorreo.bienvenido_email(design.email).deliver_now
+               ActionCorreo.bienvenido_email(design.email).deliver_now
                 design.state = "Disponible"
                 design.save
                 delete_message_from_queue(message_from_queue.receipt_handle)
